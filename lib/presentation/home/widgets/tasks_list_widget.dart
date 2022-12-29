@@ -6,6 +6,7 @@ import 'package:flutter_tasks_challenge/app/config/text_styles.dart';
 import 'package:flutter_tasks_challenge/app/utils/responsive_util.dart';
 import 'package:flutter_tasks_challenge/presentation/home/controllers/home_tab_controller.dart';
 import 'package:flutter_tasks_challenge/presentation/home/controllers/tasks_controller.dart';
+import 'package:flutter_tasks_challenge/presentation/home/widgets/custom_button_widget.dart';
 import 'package:flutter_tasks_challenge/presentation/home/widgets/error_getting_data_widget.dart';
 import 'package:flutter_tasks_challenge/presentation/home/widgets/loading_data_widget.dart';
 import 'package:flutter_tasks_challenge/presentation/home/widgets/task_container_widget.dart';
@@ -37,6 +38,61 @@ class TasksListWidget extends GetView<HomeTabController> {
                 (x) => TaskContainerWidget(
                   task: controller.selectedTab.value!.tasks![x],
                   color: colors[Random().nextInt(colors.length - 1)],
+                  onLongPress: () {
+                    final task = controller.selectedTab.value!.tasks![x];
+                    Get.defaultDialog(
+                      titlePadding: EdgeInsets.only(top: resp.hp(2)),
+                      title: '',
+                      content: Column(
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: containersBackgroundColor,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                            ),
+                            child: Image.asset('assets/images/delete_task.png'),
+                          ),
+                          SizedBox(height: resp.hp(1)),
+                          RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              text: 'Are you sure you want to delete ',
+                              style: TextStyles.w500(16),
+                              children: [
+                                TextSpan(
+                                  text: '${task.title} ',
+                                  style: TextStyles.w800(16, accent),
+                                ),
+                                TextSpan(
+                                  text: 'task?',
+                                  style: TextStyles.w500(16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      actions: [
+                        CustomButtonWidget(
+                          text: 'Aceptar',
+                          color: const Color(0xff90B77D),
+                          onPress: () async {
+                            Get.back();
+                            // await tasks.deleteTask(task);
+                          },
+                        ),
+                        CustomButtonWidget(
+                          text: 'Cancelar',
+                          color: const Color(0xffE64848),
+                          onPress: () {
+                            Get.back();
+                          },
+                        ),
+                      ],
+                    );
+                  },
                 ),
               )
             else ...[

@@ -5,12 +5,22 @@ class TaskModel {
   final String title;
   final bool isCompleted;
   final DateTime dueDate;
+  final String? comments;
+  final String? description;
+  final String? createdAt;
+  final String? updatedAt;
+  final String? tags;
 
   const TaskModel({
     required this.id,
     required this.title,
     required this.isCompleted,
     required this.dueDate,
+    required this.comments,
+    required this.description,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.tags,
   });
 
   Map<String, dynamic> toMap() {
@@ -19,6 +29,11 @@ class TaskModel {
       'title': title,
       'is_completed': isCompleted,
       'due_date': dueDate.millisecondsSinceEpoch,
+      'comments': comments,
+      'description': description,
+      'tags': tags,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
     };
   }
 
@@ -28,6 +43,15 @@ class TaskModel {
       title: map['title'],
       isCompleted: map['is_completed'] == 1,
       dueDate: DateTime.parse(map['due_date']),
+      comments: map['comments'],
+      description: map['description'],
+      tags: map['tags'],
+      createdAt: map['created_at'] != null
+          ? DateTime.parse(map['created_at'])
+          : map['created_at'],
+      updatedAt: map['updated_at'] != null
+          ? DateTime.parse(map['updated_at'])
+          : map['updated_at'],
     );
   }
 

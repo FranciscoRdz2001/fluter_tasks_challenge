@@ -11,6 +11,7 @@ import '../../../app/utils/responsive_util.dart';
 
 class TaskContainerWidget extends StatelessWidget {
   final TaskModel task;
+  final VoidCallback onLongPress;
   final ValueNotifier<double> height = ValueNotifier(0);
   final Color color;
   final GlobalKey testKey = GlobalKey();
@@ -19,6 +20,7 @@ class TaskContainerWidget extends StatelessWidget {
     super.key,
     required this.color,
     required this.task,
+    required this.onLongPress,
   });
 
   @override
@@ -46,7 +48,7 @@ class TaskContainerWidget extends StatelessWidget {
             splashColor: color,
             highlightColor: Colors.transparent,
             borderRadius: BorderRadius.circular(15),
-            onLongPress: () {},
+            onLongPress: onLongPress,
             child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: resp.wp(3),

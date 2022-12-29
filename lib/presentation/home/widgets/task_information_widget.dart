@@ -24,6 +24,16 @@ class TaskInformationWidget extends StatelessWidget {
           Text('Title:', style: TextStyles.w700(16)),
           Text(task.title, style: TextStyles.w500(14, grey)),
           SizedBox(height: resp.hp(1)),
+          if (task.description != null) ...[
+            Text('Description:', style: TextStyles.w700(16)),
+            Text(task.description!, style: TextStyles.w500(14, grey)),
+            SizedBox(height: resp.hp(1)),
+          ],
+          if (task.tags != null) ...[
+            Text('Tags:', style: TextStyles.w700(16)),
+            Text(task.tags!, style: TextStyles.w500(14, grey)),
+            SizedBox(height: resp.hp(1)),
+          ],
           RichText(
             text: TextSpan(
               text: 'Expires in: \n',

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tasks_challenge/app/config/app_colors.dart';
 import 'package:flutter_tasks_challenge/app/utils/responsive_util.dart';
-import 'package:intl/intl.dart';
 
 import '../../../app/config/text_styles.dart';
 

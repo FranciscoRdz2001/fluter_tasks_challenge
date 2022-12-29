@@ -8,12 +8,12 @@ import 'package:http/http.dart' as http;
 abstract class TasksRemoteDataSource {
   Future<List<TaskModel>?> getTasks();
   Future<List<TaskModel>?> editTask();
-  Future<List<TaskModel>?> deleteTasks();
+  Future<List<TaskModel>?> deleteTasks(TaskModel task);
 }
 
 class TasksRemoteDataSourceImpl extends TasksRemoteDataSource {
   @override
-  Future<List<TaskModel>> deleteTasks() async {
+  Future<List<TaskModel>> deleteTasks(TaskModel task) async {
     return [];
   }
 

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_tasks_challenge/data/datasources/tasks_remote_data_source.dart';
 import 'package:flutter_tasks_challenge/data/models/task_model.dart';
 import 'package:flutter_tasks_challenge/presentation/home/controllers/home_tab_controller.dart';
@@ -30,6 +29,12 @@ class TasksController extends GetxController {
         notCompletedTasks: notCompletedTasks.value,
       );
     }
+    isLoading.value = false;
+  }
+
+  Future<void> deleteTask(final TaskModel task) async {
+    isLoading.value = true;
+    dataSource.deleteTasks(task);
     isLoading.value = false;
   }
 }
