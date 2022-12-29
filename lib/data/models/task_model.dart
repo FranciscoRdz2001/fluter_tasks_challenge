@@ -30,7 +30,8 @@ class TaskModel {
   }
 
   String getExpiresTime() {
-    // final DateTime.now
+    final date2 = DateTime.now();
+    final difference = date2.difference(dueDate).inDays;
     return '';
   }
 }
