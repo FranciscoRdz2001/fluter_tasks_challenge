@@ -3,9 +3,14 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_tasks_challenge/app/config/app_colors.dart';
 import 'package:flutter_tasks_challenge/app/config/constants.dart';
 import 'package:flutter_tasks_challenge/data/models/task_model.dart';
+import 'package:flutter_tasks_challenge/presentation/home/controllers/tasks_controller.dart';
+import 'package:flutter_tasks_challenge/presentation/home/widgets/error_getting_data_widget.dart';
+import 'package:flutter_tasks_challenge/presentation/home/widgets/loading_data_widget.dart';
 import 'package:flutter_tasks_challenge/presentation/home/widgets/task_animated_line_widget.dart';
 import 'package:flutter_tasks_challenge/presentation/home/widgets/task_date_widget.dart';
 import 'package:flutter_tasks_challenge/presentation/home/widgets/task_information_widget.dart';
+import 'package:get/get_instance/get_instance.dart';
+import 'package:get/route_manager.dart';
 
 import '../../../app/utils/responsive_util.dart';
 
@@ -49,6 +54,34 @@ class TaskContainerWidget extends StatelessWidget {
             highlightColor: Colors.transparent,
             borderRadius: BorderRadius.circular(15),
             onLongPress: onLongPress,
+            onTap: () async {
+              final TasksController controller = Get.find();
+              Get.defaultDialog(
+                titlePadding: EdgeInsets.only(top: resp.hp(2)),
+                barrierDismissible: false,
+                title: '',
+                content: const LoadingDataWidget(
+                  showImage: false,
+                  fontColor: grey,
+                ),
+              );
+              final res = await controller
+                  .getTask(task.id)
+                  .whenComplete(() => Get.back());
+              if (res == null) {
+                Get.back();
+                Get.defaultDialog(
+                  titlePadding: EdgeInsets.only(top: resp.hp(2)),
+                  title: '',
+                  content: const ErrorGettingDataWidget(
+                    fontColor: grey,
+                    showSubtitle: false,
+                  ),
+                );
+                return;
+              }
+              Get.toNamed('/taskDetails', arguments: res);
+            },
             child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: resp.wp(3),

@@ -5,7 +5,13 @@ import 'package:flutter_tasks_challenge/app/utils/responsive_util.dart';
 import '../../../app/config/text_styles.dart';
 
 class ErrorGettingDataWidget extends StatelessWidget {
-  const ErrorGettingDataWidget({super.key});
+  final Color fontColor;
+  final bool showSubtitle;
+  const ErrorGettingDataWidget({
+    super.key,
+    this.fontColor = middleGrey,
+    this.showSubtitle = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +28,13 @@ class ErrorGettingDataWidget extends StatelessWidget {
         SizedBox(height: resp.hp(1)),
         Text(
           'Error getting data.',
-          style: TextStyles.w600(20, middleGrey),
+          style: TextStyles.w600(20, fontColor),
         ),
-        Text(
-          'Please refresh page',
-          style: TextStyles.w500(14, middleGrey),
-        ),
+        if (showSubtitle)
+          Text(
+            'Please refresh page',
+            style: TextStyles.w500(14, middleGrey),
+          ),
         SizedBox(height: resp.hp(1)),
       ],
     );

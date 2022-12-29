@@ -3,15 +3,15 @@ import 'package:intl/intl.dart';
 class TaskModel {
   final int id;
   final String title;
-  final bool isCompleted;
+  bool isCompleted;
   final DateTime dueDate;
   final String? comments;
   final String? description;
-  final String? createdAt;
-  final String? updatedAt;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
   final String? tags;
 
-  const TaskModel({
+  TaskModel({
     required this.id,
     required this.title,
     required this.isCompleted,
@@ -47,10 +47,10 @@ class TaskModel {
       description: map['description'],
       tags: map['tags'],
       createdAt: map['created_at'] != null
-          ? DateTime.parse(map['created_at'])
+          ? DateTime.parse(map['created_at']!)
           : map['created_at'],
       updatedAt: map['updated_at'] != null
-          ? DateTime.parse(map['updated_at'])
+          ? DateTime.parse(map['updated_at']!)
           : map['updated_at'],
     );
   }

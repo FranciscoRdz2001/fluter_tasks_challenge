@@ -9,6 +9,7 @@ class TasksController extends GetxController {
   Rx<List<TaskModel>?> completedTasks = Rx([]);
   Rx<List<TaskModel>?> notCompletedTasks = Rx([]);
   RxBool isLoading = RxBool(false);
+  RxBool isGettingTask = RxBool(false);
 
   @override
   void onInit() async {
@@ -30,6 +31,13 @@ class TasksController extends GetxController {
       );
     }
     isLoading.value = false;
+  }
+
+  Future<TaskModel?> getTask(final int id) async {
+    isGettingTask.value = true;
+    final task = dataSource.getTask(id);
+    isGettingTask.value = false;
+    return task;
   }
 
   Future<void> deleteTask(final TaskModel task) async {
