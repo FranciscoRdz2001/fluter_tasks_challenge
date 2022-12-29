@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tasks_challenge/app/config/app_colors.dart';
 import 'package:flutter_tasks_challenge/app/utils/responsive_util.dart';
 import 'package:intl/intl.dart';
 
 import '../../../app/config/text_styles.dart';
 
 class TaskDateWidget extends StatelessWidget {
-  const TaskDateWidget({super.key});
+  final String date;
+  const TaskDateWidget({
+    super.key,
+    required this.date,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +24,9 @@ class TaskDateWidget extends StatelessWidget {
         ),
         SizedBox(height: resp.hp(0.5)),
         Text(
-          '${DateFormat.yMMMEd().format(DateTime.now())} ',
+          date,
           textAlign: TextAlign.center,
-          style: TextStyles.w500(14),
+          style: TextStyles.w500(14, grey),
         ),
       ],
     );

@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class TaskModel {
   final int id;
   final String title;
@@ -15,8 +17,8 @@ class TaskModel {
     return <String, dynamic>{
       'id': id,
       'title': title,
-      'isCompleted': isCompleted,
-      'dueDate': dueDate.millisecondsSinceEpoch,
+      'is_completed': isCompleted,
+      'due_date': dueDate.millisecondsSinceEpoch,
     };
   }
 
@@ -24,14 +26,27 @@ class TaskModel {
     return TaskModel(
       id: map['id'],
       title: map['title'],
-      isCompleted: map['isCompleted'],
+      isCompleted: map['is_completed'] == 1,
       dueDate: DateTime.parse(map['due_date']),
     );
   }
 
-  String getExpiresTime() {
-    final date2 = DateTime.now();
-    final difference = date2.difference(dueDate).inDays;
-    return '';
+  List<String> getExpirationTime() {
+    final difference = dueDate.difference(DateTime.now());
+    const int daysInYear = 365;
+    final double years = difference.inDays / daysInYear;
+    final double days = getResidue(years) * daysInYear;
+    final double hours = getResidue(days) * 24;
+    final double minutes = getResidue(hours) * 60;
+    final list = [
+      years != 0 ? '${years.floor()} years' : '',
+      days != 0 ? ' ${days.floor()} day/s' : '',
+      hours != 0 ? ' ${hours.floor()} hour/s' : '',
+      minutes != 0 ? ' ${minutes.floor()} minutes/s' : '',
+    ];
+    return list.where((t) => t.isNotEmpty).toList();
   }
+
+  double getResidue(double value) => value - value.toInt();
+  String getDate() => DateFormat.yMMMEd().format(dueDate);
 }

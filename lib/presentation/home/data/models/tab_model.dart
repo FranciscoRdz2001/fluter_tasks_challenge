@@ -1,9 +1,13 @@
+import 'package:flutter_tasks_challenge/data/models/task_model.dart';
+
+import '../../../../app/types/tabs_types.dart';
+
 class TabModel {
-  final String name;
-  final List data;
+  final TaskTypes type;
+  final List<TaskModel>? tasks;
 
   const TabModel({
-    required this.name,
-    required this.data,
+    required this.type,
+    required this.tasks,
   });
 }

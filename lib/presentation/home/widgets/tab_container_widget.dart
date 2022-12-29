@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tasks_challenge/app/types/tabs_types.dart';
 import 'package:flutter_tasks_challenge/app/utils/responsive_util.dart';
 import 'package:flutter_tasks_challenge/presentation/home/data/models/tab_model.dart';
 
@@ -28,7 +29,7 @@ class TabContainerWidget extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              tab.name,
+              tab.type.convertToText(),
               style: TextStyles.w600(
                 16,
                 isSelected ? black : grey.withOpacity(0.5),

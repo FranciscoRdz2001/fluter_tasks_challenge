@@ -16,7 +16,7 @@ class TaskAnimatedLineWidget extends StatelessWidget {
       flex: 1,
       child: AnimatedContainer(
         curve: Curves.ease,
-        duration: const Duration(milliseconds: 350),
+        duration: const Duration(milliseconds: 500),
         height: height,
         width: double.infinity,
         decoration: BoxDecoration(
