@@ -16,7 +16,7 @@ class TaskInformationWidget extends StatelessWidget {
         children: [
           Text('Test Task Title', style: TextStyles.w700(16)),
           SizedBox(height: resp.hp(1)),
-          Text('Test Task Description', style: TextStyles.w500(14)),
+          Text('Expires in: ', style: TextStyles.w500(14)),
         ],
       ),
     );

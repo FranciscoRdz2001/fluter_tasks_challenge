@@ -20,7 +20,11 @@ class TaskAnimatedLineWidget extends StatelessWidget {
         height: height,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: color,
+          gradient: LinearGradient(
+            colors: accentGradient.colors,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomLeft,
+          ),
           borderRadius: BorderRadius.circular(20),
         ),
       ),

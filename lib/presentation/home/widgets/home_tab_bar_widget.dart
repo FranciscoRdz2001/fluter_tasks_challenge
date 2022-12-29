@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tasks_challenge/app/config/app_colors.dart';
-import 'package:flutter_tasks_challenge/app/config/text_styles.dart';
 import 'package:flutter_tasks_challenge/app/utils/responsive_util.dart';
+import 'package:flutter_tasks_challenge/presentation/home/controllers/home_tab_controller.dart';
 import 'package:flutter_tasks_challenge/presentation/home/data/models/tab_model.dart';
+import 'package:flutter_tasks_challenge/presentation/home/widgets/tab_container_widget.dart';
+import 'package:get/get.dart';
 
-class HomeTabBarWidget extends StatelessWidget {
-  final List<TabModel> tabs;
+class HomeTabBarWidget extends GetView<HomeTabController> {
   const HomeTabBarWidget({
     super.key,
-    required this.tabs,
   });
 
   @override
@@ -17,46 +16,29 @@ class HomeTabBarWidget extends StatelessWidget {
     return SizedBox(
       height: resp.hp(5),
       width: resp.width,
-      child: Row(
-        children: [
-          ...List.generate(
-            tabs.length,
-            (x) {
-              final TabModel tab = tabs[x];
-              final bool isSelected = tab.isSelected;
-              final bool isFinalElement = x == tabs.length - 1;
-              return Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    right: isFinalElement ? 0 : resp.wp(2),
-                  ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: [
-                        Text(
-                          tab.name,
-                          style: TextStyles.w600(
-                            16,
-                            isSelected ? black : grey.withOpacity(0.5),
-                          ),
-                        ),
-                        SizedBox(height: resp.hp(0.5)),
-                        Container(
-                          height: resp.hp(0.8),
-                          decoration: BoxDecoration(
-                            color: isSelected ? accent : lightGrey,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        )
-                      ],
+      child: Obx(
+        () => Row(
+          children: [
+            ...List.generate(
+              controller.tabs.length,
+              (x) {
+                final TabModel tab = controller.tabs[x];
+                final bool isSelected = controller.isSelected(tab);
+                final bool isFinalElement = x == controller.tabs.length - 1;
+                return Expanded(
+                  child: GestureDetector(
+                    onTap: () => controller.onNewSelection(tab),
+                    child: TabContainerWidget(
+                      tab: tab,
+                      rightPadding: isFinalElement ? 0 : resp.wp(2),
+                      isSelected: isSelected,
                     ),
                   ),
-                ),
-              );
-            },
-          )
-        ],
+                );
+              },
+            )
+          ],
+        ),
       ),
     );
   }

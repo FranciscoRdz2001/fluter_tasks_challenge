@@ -10,21 +10,22 @@ class HomeAnnouncementContainerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final ResponsiveUtil resp = ResponsiveUtil.of(context);
     return Container(
-      height: resp.hp(30),
+      height: resp.hp(25),
       width: resp.width,
-      clipBehavior: Clip.hardEdge,
+      clipBehavior: Clip.none,
       decoration: BoxDecoration(
         color: containersBackgroundColor,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Stack(
-        fit: StackFit.expand,
+      child: Column(
         children: [
-          Column(
-            children: [
-              Expanded(
-                flex: 3,
-                child: Padding(
+          Expanded(
+            flex: 3,
+            child: Stack(
+              alignment: Alignment.topCenter,
+              clipBehavior: Clip.none,
+              children: [
+                Padding(
                   padding: EdgeInsets.only(
                     right: resp.wp(2.5),
                     left: resp.wp(2.5),
@@ -37,20 +38,25 @@ class HomeAnnouncementContainerWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'You have 5 pending tasks',
-                      style: TextStyles.w500(18),
-                    )
-                  ],
+                Positioned(
+                  bottom: resp.hp(5),
+                  right: resp.wp(5),
+                  child: Image.asset('assets/images/has_tasks.png'),
                 ),
-              ),
-            ],
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'You have 5 pending tasks',
+                  style: TextStyles.w500(18),
+                )
+              ],
+            ),
           ),
         ],
       ),

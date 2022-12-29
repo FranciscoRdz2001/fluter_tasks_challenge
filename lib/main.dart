@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tasks_challenge/presentation/home/bindings/home_page_bindings.dart';
 import 'package:flutter_tasks_challenge/presentation/home/pages/home_page.dart';
+import 'package:flutter_tasks_challenge/routes.dart';
+import 'package:get/get.dart';
 
 void main() => runApp(const MyApp());
 
@@ -8,10 +11,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return GetMaterialApp(
+      getPages: getPages,
       debugShowCheckedModeBanner: false,
+      initialBinding: const HomePageBindings(),
       title: 'Tasks Challenge',
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
