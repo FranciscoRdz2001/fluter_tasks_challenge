@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tasks_challenge/app/config/app_colors.dart';
 import 'package:flutter_tasks_challenge/app/utils/responsive_util.dart';
-import 'package:flutter_tasks_challenge/data/models/task_model.dart';
+import 'package:flutter_tasks_challenge/data/network/models/task_model.dart';
 
 import '../../../app/config/text_styles.dart';
 

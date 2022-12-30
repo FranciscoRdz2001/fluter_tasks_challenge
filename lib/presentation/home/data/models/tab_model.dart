@@ -1,4 +1,4 @@
-import 'package:flutter_tasks_challenge/data/models/task_model.dart';
+import 'package:flutter_tasks_challenge/data/network/models/task_model.dart';
 
 import '../../../../app/types/tabs_types.dart';
 

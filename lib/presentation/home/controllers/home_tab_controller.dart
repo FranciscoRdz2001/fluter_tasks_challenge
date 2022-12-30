@@ -2,7 +2,7 @@ import 'package:flutter_tasks_challenge/app/types/tabs_types.dart';
 import 'package:flutter_tasks_challenge/presentation/home/data/models/tab_model.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/task_model.dart';
+import '../../../data/network/models/task_model.dart';
 
 class HomeTabController extends GetxController {
   RxList<TabModel> tabs = RxList([]);

@@ -1,9 +1,9 @@
 import 'package:flutter_tasks_challenge/data/datasources/tasks_remote_data_source.dart';
-import 'package:flutter_tasks_challenge/data/models/task_model.dart';
+import 'package:flutter_tasks_challenge/data/network/models/task_model.dart';
 import 'package:flutter_tasks_challenge/presentation/home/controllers/home_tab_controller.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/api_response_model.dart';
+import '../../../data/network/models/api_response_model.dart';
 
 class TasksController extends GetxController {
   final TasksRemoteDataSourceImpl dataSource = TasksRemoteDataSourceImpl();

@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_tasks_challenge/app/config/constants.dart';
-import 'package:flutter_tasks_challenge/data/models/api_response_model.dart';
-import 'package:flutter_tasks_challenge/data/models/task_model.dart';
+import 'package:flutter_tasks_challenge/data/network/models/api_response_model.dart';
+import 'package:flutter_tasks_challenge/data/network/models/task_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class TasksRemoteDataSource {
