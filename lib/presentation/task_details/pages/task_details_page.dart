@@ -61,10 +61,7 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
             return;
           }
 
-          if (!res.hasErrors) {
-            Get.offAllNamed('/home');
-            await taskController.getAllTasks();
-          }
+          if (!res.hasErrors) Get.offAllNamed('/home');
           SnackBarsUtil.forStatus(
             message: res.message,
             hasError: res.hasErrors,

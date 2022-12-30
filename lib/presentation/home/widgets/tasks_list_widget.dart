@@ -5,6 +5,7 @@ import 'package:flutter_tasks_challenge/app/config/app_colors.dart';
 import 'package:flutter_tasks_challenge/app/config/text_styles.dart';
 import 'package:flutter_tasks_challenge/app/utils/dialogs_util.dart';
 import 'package:flutter_tasks_challenge/app/utils/responsive_util.dart';
+import 'package:flutter_tasks_challenge/app/utils/snackbars_util.dart';
 import 'package:flutter_tasks_challenge/presentation/home/controllers/home_tab_controller.dart';
 import 'package:flutter_tasks_challenge/presentation/home/controllers/tasks_controller.dart';
 import 'package:flutter_tasks_challenge/presentation/home/widgets/custom_button_widget.dart';
@@ -51,7 +52,18 @@ class TasksListWidget extends GetView<HomeTabController> {
                           color: const Color(0xff90B77D),
                           onPress: () async {
                             Get.back();
-                            await tasks.deleteTask(task);
+                            DialogsUtil.loading();
+                            final res = await tasks
+                                .deleteTask(task)
+                                .whenComplete(() => Get.back());
+                            if (res == null) {
+                              DialogsUtil.error();
+                              return;
+                            }
+                            SnackBarsUtil.forStatus(
+                              message: res.message,
+                              hasError: res.hasErrors,
+                            );
                           },
                         ),
                         CustomButtonWidget(

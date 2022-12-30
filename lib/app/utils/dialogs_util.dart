@@ -60,10 +60,7 @@ class DialogsUtil {
       titlePadding: const EdgeInsets.only(top: 20),
       barrierDismissible: false,
       title: '',
-      content: const LoadingDataWidget(
-        showImage: false,
-        fontColor: grey,
-      ),
+      content: const LoadingDataWidget(fontColor: grey),
     );
   }
 

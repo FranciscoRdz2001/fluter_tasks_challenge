@@ -11,13 +11,41 @@ abstract class TasksRemoteDataSource {
   Future<TaskModel?> getTask(final int id);
   Future<ApiResponseModel?> editTask(final TaskModel task);
   Future<ApiResponseModel?> createTask(final TaskModel task);
-  Future<List<TaskModel>?> deleteTasks(TaskModel task);
+  Future<ApiResponseModel?> deleteTasks(TaskModel task);
 }
 
 class TasksRemoteDataSourceImpl extends TasksRemoteDataSource {
   @override
-  Future<List<TaskModel>> deleteTasks(TaskModel task) async {
-    return [];
+  Future<ApiResponseModel?> deleteTasks(TaskModel task) async {
+    try {
+      final url = Uri.parse('$baseUrl/$tasksEndPoint/${task.id}?token=$token');
+      debugPrint(url.toString());
+      final headers = {
+        'Authorization': 'Bearer $token',
+        "Content-Type": "application/json; charset=utf-8",
+      };
+      final response = await http.delete(
+        url,
+        body: jsonEncode(task.toMap()),
+        headers: headers,
+      );
+      final json = jsonDecode(response.body);
+      if (response.statusCode == 201) {
+        return ApiResponseModel(
+          hasErrors: false,
+          message: json['detail'],
+          statusCode: response.statusCode,
+        );
+      }
+      return ApiResponseModel(
+        hasErrors: true,
+        message: json['detail'],
+        statusCode: response.statusCode,
+      );
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return null;
   }
 
   @override
