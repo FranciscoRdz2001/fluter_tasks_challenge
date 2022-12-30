@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tasks_challenge/app/utils/dialogs_util.dart';
 import 'package:flutter_tasks_challenge/app/utils/responsive_util.dart';
-import 'package:get/get.dart';
-
 import '../../../app/config/app_colors.dart';
 import '../../../app/config/text_styles.dart';
-import 'custom_text_form_field_widget.dart';
 
 class TaskDataWidget extends StatelessWidget {
   final String title;
-  final String? subTitle;
-  final Widget? extraWidget;
   final IconData icon;
   final bool canEdit;
   final bool isRequiredToSave;
+  final String? subTitle;
+  final String? originalValue;
+  final Widget? extraWidget;
+  final bool hideSubtitle;
   final void Function(String)? onSummitCallback;
   const TaskDataWidget({
     super.key,
@@ -20,9 +20,11 @@ class TaskDataWidget extends StatelessWidget {
     required this.icon,
     this.subTitle,
     this.extraWidget,
+    this.onSummitCallback,
+    this.originalValue,
     this.canEdit = false,
     this.isRequiredToSave = false,
-    this.onSummitCallback,
+    this.hideSubtitle = false,
   });
 
   @override
@@ -55,10 +57,12 @@ class TaskDataWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  if (subTitle != null) ...[
+                  if (!hideSubtitle) ...[
                     SizedBox(height: resp.hp(0.5)),
                     Text(
-                      subTitle!,
+                      subTitle == null || subTitle!.isEmpty
+                          ? 'No $title'
+                          : subTitle!,
                       style: TextStyles.w500(14, grey),
                     ),
                   ],
@@ -76,25 +80,10 @@ class TaskDataWidget extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 icon: const Icon(Icons.edit, color: accent),
                 onPressed: () {
-                  Get.defaultDialog(
-                    titlePadding: EdgeInsets.only(top: resp.hp(2)),
-                    title: 'Set $title',
-                    titleStyle: TextStyles.w500(14, grey),
-                    content: Column(
-                      children: [
-                        CustomTextFormFieldWidget(
-                          initialText: subTitle ?? '',
-                          label: title,
-                          maxLines: 5,
-                          onAcceptCallback: (value) {
-                            Get.back();
-                            if (onSummitCallback != null) {
-                              onSummitCallback!(value);
-                            }
-                          },
-                        )
-                      ],
-                    ),
+                  DialogsUtil.withTextField(
+                    title: title,
+                    initialText: originalValue ?? '',
+                    onSummitCallback: onSummitCallback,
                   );
                 },
               ),

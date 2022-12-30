@@ -38,18 +38,25 @@ class TaskInformationWidget extends StatelessWidget {
             text: TextSpan(
               text: 'Expires in: \n',
               style: TextStyles.w700(16),
-              children: List.generate(
-                time.length,
-                (x) {
-                  if (time[x].isNotEmpty && x < time.length - 1) {
-                    time[x] += ', ';
-                  }
-                  return TextSpan(
-                    text: time[x],
-                    style: TextStyles.w500(14, grey),
-                  );
-                },
-              ),
+              children: time.isNotEmpty
+                  ? List.generate(
+                      time.length,
+                      (x) {
+                        if (time[x].isNotEmpty && x < time.length - 1) {
+                          time[x] += ', ';
+                        }
+                        return TextSpan(
+                          text: time[x],
+                          style: TextStyles.w500(14, grey),
+                        );
+                      },
+                    )
+                  : [
+                      TextSpan(
+                        text: 'No date',
+                        style: TextStyles.w500(14, grey),
+                      )
+                    ],
             ),
           ),
         ],

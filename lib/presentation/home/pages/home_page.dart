@@ -5,6 +5,7 @@ import 'package:flutter_tasks_challenge/app/utils/responsive_util.dart';
 import 'package:flutter_tasks_challenge/presentation/home/widgets/home_announcement_container_widget.dart';
 import 'package:flutter_tasks_challenge/presentation/home/widgets/home_tab_bar_widget.dart';
 import 'package:flutter_tasks_challenge/presentation/home/widgets/tasks_list_widget.dart';
+import 'package:get/route_manager.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,6 +15,11 @@ class HomePage extends StatelessWidget {
     final ResponsiveUtil resp = ResponsiveUtil.of(context);
     return Scaffold(
       backgroundColor: backgroundColor,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: accent,
+        child: const Icon(Icons.add),
+        onPressed: () => Get.toNamed('/taskDetails'),
+      ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(

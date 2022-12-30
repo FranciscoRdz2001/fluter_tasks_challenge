@@ -41,15 +41,14 @@ class TasksController extends GetxController {
   }
 
   Future<void> deleteTask(final TaskModel task) async {
-    isLoading.value = true;
-    dataSource.deleteTasks(task);
-    isLoading.value = false;
+    await dataSource.deleteTasks(task);
   }
 
   Future<ApiResponseModel?> editTask(final TaskModel task) async {
-    isLoading.value = true;
-    final res = await dataSource.editTask(task);
-    isLoading.value = false;
-    return res;
+    return await dataSource.editTask(task);
+  }
+
+  Future<ApiResponseModel?> createTask(final TaskModel task) async {
+    return dataSource.createTask(task);
   }
 }

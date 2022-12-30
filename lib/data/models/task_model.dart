@@ -1,3 +1,4 @@
+import 'package:flutter_tasks_challenge/app/config/constants.dart';
 import 'package:intl/intl.dart';
 
 class TaskModel {
@@ -15,22 +16,23 @@ class TaskModel {
     required this.id,
     required this.title,
     required this.isCompleted,
-    required this.dueDate,
-    required this.comments,
-    required this.description,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.tags,
+    this.dueDate,
+    this.comments,
+    this.description,
+    this.createdAt,
+    this.updatedAt,
+    this.tags,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'title': title,
-      'is_completed': (isCompleted ? 1 : 0).toString(),
+      'is_completed': isCompleted ? 1 : 0,
       'due_date':
           dueDate == null ? null : DateFormat('yyyy-MM-dd').format(dueDate!),
       'comments': comments,
       'description': description,
+      'token': token,
       'tags': tags,
     };
   }
@@ -57,15 +59,16 @@ class TaskModel {
     if (dueDate == null) return ['No date'];
     final difference = dueDate!.difference(DateTime.now());
     const int daysInYear = 365;
-    final double years = difference.inDays / daysInYear;
-    final double days = getResidue(years) * daysInYear;
-    final double hours = getResidue(days) * 24;
-    final double minutes = getResidue(hours) * 60;
+    double years = difference.inDays / daysInYear;
+    double days = getResidue(years) * daysInYear;
+    double hours = getResidue(days) * 24;
+    int floorYear = years.floor();
+    int floorDays = days.floor();
+    int floorHours = hours.floor();
     final list = [
-      years != 0 ? '${years.floor()} years' : '',
-      days != 0 ? ' ${days.floor()} day/s' : '',
-      hours != 0 ? ' ${hours.floor()} hour/s' : '',
-      minutes != 0 ? ' ${minutes.floor()} minutes/s' : '',
+      floorYear != 0 ? '$floorYear years' : '',
+      floorDays != 0 ? ' $floorDays day/s' : '',
+      floorHours != 0 ? ' $floorHours hour/s' : '',
     ];
     return list.where((t) => t.isNotEmpty).toList();
   }

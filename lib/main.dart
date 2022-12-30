@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tasks_challenge/presentation/home/bindings/home_page_bindings.dart';
 import 'package:flutter_tasks_challenge/presentation/home/pages/home_page.dart';
-import 'package:flutter_tasks_challenge/routes.dart';
+import 'package:flutter_tasks_challenge/app/utils/routes.dart';
 import 'package:get/get.dart';
 
 void main() => runApp(const MyApp());
