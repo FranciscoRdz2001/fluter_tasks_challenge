@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_tasks_challenge/app/config/constants.dart';
 import 'package:intl/intl.dart';
 
@@ -26,7 +25,6 @@ class TaskModel {
   });
 
   Map<String, dynamic> toMap() {
-    debugPrint(DateFormat('yyyy-MM-dd').format(dueDate!));
     return {
       'title': title,
       'is_completed': isCompleted ? 1 : 0,

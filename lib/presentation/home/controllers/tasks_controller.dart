@@ -1,12 +1,12 @@
-import 'package:flutter_tasks_challenge/data/datasources/tasks_remote_data_source.dart';
 import 'package:flutter_tasks_challenge/data/network/models/task_model.dart';
+import 'package:flutter_tasks_challenge/data/repositories/tasks_repository.dart';
 import 'package:flutter_tasks_challenge/presentation/home/controllers/home_tab_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../data/network/models/api_response_model.dart';
 
 class TasksController extends GetxController {
-  final TasksRemoteDataSourceImpl dataSource = TasksRemoteDataSourceImpl();
+  final TasksRepository _repository = TasksRepository();
   Rx<List<TaskModel>?> tasks = Rx([]);
   Rx<List<TaskModel>?> completedTasks = Rx([]);
   Rx<List<TaskModel>?> notCompletedTasks = Rx([]);
@@ -21,7 +21,7 @@ class TasksController extends GetxController {
 
   Future<void> getAllTasks() async {
     isLoading.value = true;
-    tasks.value = await dataSource.getTasks();
+    tasks.value = await _repository.getTasks();
     if (tasks.value != null) {
       completedTasks.value = tasks.value!.where((t) => t.isCompleted).toList();
       notCompletedTasks.value =
@@ -36,22 +36,22 @@ class TasksController extends GetxController {
   }
 
   Future<TaskModel?> getTask(final int id) async {
-    final task = dataSource.getTask(id);
+    final task = _repository.getTask(id);
     return task;
   }
 
   Future<ApiResponseModel?> deleteTask(final TaskModel task) async {
-    final res = await dataSource.deleteTasks(task);
+    final res = await _repository.deleteTask(task);
     await getAllTasks();
     return res;
   }
 
   Future<ApiResponseModel?> editTask(final TaskModel task) async {
-    return await dataSource.editTask(task);
+    return await _repository.editTask(task);
   }
 
   Future<ApiResponseModel?> createTask(final TaskModel task) async {
-    final res = dataSource.createTask(task);
+    final res = _repository.createTask(task);
     await getAllTasks();
     return res;
   }

@@ -15,8 +15,6 @@ class TaskInformationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ResponsiveUtil resp = ResponsiveUtil.of(context);
-    final time = task.getExpirationTime();
-    print(time);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: resp.hp(1)),
       child: Column(

@@ -41,7 +41,6 @@ class NextlineApiClient extends BaseClient {
       '$baseUrl/$tasksEndPoint/${task.id}',
       method: HttpMethods.put,
       queryParameters: _query,
-      headers: headers,
       body: jsonEncode(task.toMap()),
     );
     final json = jsonDecode(response.body);
@@ -53,7 +52,6 @@ class NextlineApiClient extends BaseClient {
       '$baseUrl/$tasksEndPoint',
       method: HttpMethods.post,
       queryParameters: _query,
-      headers: headers,
       body: jsonEncode(task.toMap()),
     );
     final json = jsonDecode(response.body);
