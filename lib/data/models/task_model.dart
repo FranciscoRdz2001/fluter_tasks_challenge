@@ -2,14 +2,14 @@ import 'package:intl/intl.dart';
 
 class TaskModel {
   final int id;
-  final String title;
+  String title;
   bool isCompleted;
-  final DateTime dueDate;
-  final String? comments;
-  final String? description;
+  DateTime? dueDate;
+  String? comments;
+  String? description;
+  String? tags;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final String? tags;
 
   TaskModel({
     required this.id,
@@ -24,25 +24,23 @@ class TaskModel {
   });
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
+    return {
       'title': title,
-      'is_completed': isCompleted,
-      'due_date': dueDate.millisecondsSinceEpoch,
+      'is_completed': (isCompleted ? 1 : 0).toString(),
+      'due_date':
+          dueDate == null ? null : DateFormat('yyyy-MM-dd').format(dueDate!),
       'comments': comments,
       'description': description,
       'tags': tags,
-      'created_at': createdAt,
-      'updated_at': updatedAt,
     };
   }
 
   factory TaskModel.fromMap(Map<String, dynamic> map) {
     return TaskModel(
       id: map['id'],
-      title: map['title'],
+      title: map['title'] ?? '',
       isCompleted: map['is_completed'] == 1,
-      dueDate: DateTime.parse(map['due_date']),
+      dueDate: map['due_date'] != null ? DateTime.parse(map['due_date']) : null,
       comments: map['comments'],
       description: map['description'],
       tags: map['tags'],
@@ -56,7 +54,8 @@ class TaskModel {
   }
 
   List<String> getExpirationTime() {
-    final difference = dueDate.difference(DateTime.now());
+    if (dueDate == null) return ['No date'];
+    final difference = dueDate!.difference(DateTime.now());
     const int daysInYear = 365;
     final double years = difference.inDays / daysInYear;
     final double days = getResidue(years) * daysInYear;
@@ -72,5 +71,6 @@ class TaskModel {
   }
 
   double getResidue(double value) => value - value.toInt();
-  String getDate() => DateFormat.yMMMEd().format(dueDate);
+  String getDate() =>
+      dueDate == null ? 'No date' : DateFormat.yMMMEd().format(dueDate!);
 }

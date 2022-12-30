@@ -80,7 +80,8 @@ class TaskContainerWidget extends StatelessWidget {
                 );
                 return;
               }
-              Get.toNamed('/taskDetails', arguments: res);
+              Get.back();
+              await Get.toNamed('/taskDetails', arguments: res);
             },
             child: Padding(
               padding: EdgeInsets.symmetric(

@@ -3,13 +3,15 @@ import 'package:flutter_tasks_challenge/data/models/task_model.dart';
 import 'package:flutter_tasks_challenge/presentation/home/controllers/home_tab_controller.dart';
 import 'package:get/get.dart';
 
+import '../../../data/models/api_response_model.dart';
+
 class TasksController extends GetxController {
   final TasksRemoteDataSourceImpl dataSource = TasksRemoteDataSourceImpl();
   Rx<List<TaskModel>?> tasks = Rx([]);
   Rx<List<TaskModel>?> completedTasks = Rx([]);
   Rx<List<TaskModel>?> notCompletedTasks = Rx([]);
   RxBool isLoading = RxBool(false);
-  RxBool isGettingTask = RxBool(false);
+  RxBool isSavingTask = RxBool(false);
 
   @override
   void onInit() async {
@@ -34,9 +36,7 @@ class TasksController extends GetxController {
   }
 
   Future<TaskModel?> getTask(final int id) async {
-    isGettingTask.value = true;
     final task = dataSource.getTask(id);
-    isGettingTask.value = false;
     return task;
   }
 
@@ -44,5 +44,12 @@ class TasksController extends GetxController {
     isLoading.value = true;
     dataSource.deleteTasks(task);
     isLoading.value = false;
+  }
+
+  Future<ApiResponseModel?> editTask(final TaskModel task) async {
+    isLoading.value = true;
+    final res = await dataSource.editTask(task);
+    isLoading.value = false;
+    return res;
   }
 }

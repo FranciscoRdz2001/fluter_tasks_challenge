@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tasks_challenge/app/utils/responsive_util.dart';
+import 'package:get/get.dart';
 
 import '../../../app/config/app_colors.dart';
 import '../../../app/config/text_styles.dart';
+import 'custom_text_form_field_widget.dart';
 
 class TaskDataWidget extends StatelessWidget {
   final String title;
@@ -11,6 +13,7 @@ class TaskDataWidget extends StatelessWidget {
   final IconData icon;
   final bool canEdit;
   final bool isRequiredToSave;
+  final void Function(String)? onSummitCallback;
   const TaskDataWidget({
     super.key,
     required this.title,
@@ -19,6 +22,7 @@ class TaskDataWidget extends StatelessWidget {
     this.extraWidget,
     this.canEdit = false,
     this.isRequiredToSave = false,
+    this.onSummitCallback,
   });
 
   @override
@@ -65,7 +69,35 @@ class TaskDataWidget extends StatelessWidget {
                 ],
               ),
             ),
-            if (canEdit) const Icon(Icons.edit, color: middleGrey),
+            if (canEdit)
+              IconButton(
+                highlightColor: lightGrey.withOpacity(0.8),
+                splashColor: accent.withOpacity(0.25),
+                padding: EdgeInsets.zero,
+                icon: const Icon(Icons.edit, color: accent),
+                onPressed: () {
+                  Get.defaultDialog(
+                    titlePadding: EdgeInsets.only(top: resp.hp(2)),
+                    title: 'Set $title',
+                    titleStyle: TextStyles.w500(14, grey),
+                    content: Column(
+                      children: [
+                        CustomTextFormFieldWidget(
+                          initialText: subTitle ?? '',
+                          label: title,
+                          maxLines: 5,
+                          onAcceptCallback: (value) {
+                            Get.back();
+                            if (onSummitCallback != null) {
+                              onSummitCallback!(value);
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                  );
+                },
+              ),
           ],
         ),
         SizedBox(height: resp.hp(3)),
