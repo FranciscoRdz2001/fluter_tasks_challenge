@@ -16,6 +16,7 @@ class TaskInformationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final ResponsiveUtil resp = ResponsiveUtil.of(context);
     final time = task.getExpirationTime();
+    print(time);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: resp.hp(1)),
       child: Column(
@@ -34,30 +35,13 @@ class TaskInformationWidget extends StatelessWidget {
             Text(task.tags!, style: TextStyles.w500(14, grey)),
             SizedBox(height: resp.hp(1)),
           ],
-          RichText(
-            text: TextSpan(
-              text: 'Expires in: \n',
-              style: TextStyles.w700(16),
-              children: time.isNotEmpty
-                  ? List.generate(
-                      time.length,
-                      (x) {
-                        if (time[x].isNotEmpty && x < time.length - 1) {
-                          time[x] += ', ';
-                        }
-                        return TextSpan(
-                          text: time[x],
-                          style: TextStyles.w500(14, grey),
-                        );
-                      },
-                    )
-                  : [
-                      TextSpan(
-                        text: 'No date',
-                        style: TextStyles.w500(14, grey),
-                      )
-                    ],
-            ),
+          Text(
+            'Expires in:',
+            style: TextStyles.w700(16),
+          ),
+          Text(
+            task.getExpirationTime(),
+            style: TextStyles.w500(14, grey),
           ),
         ],
       ),

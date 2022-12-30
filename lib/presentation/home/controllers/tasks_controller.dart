@@ -47,9 +47,7 @@ class TasksController extends GetxController {
   }
 
   Future<ApiResponseModel?> editTask(final TaskModel task) async {
-    final res = await dataSource.editTask(task);
-    await getAllTasks();
-    return res;
+    return await dataSource.editTask(task);
   }
 
   Future<ApiResponseModel?> createTask(final TaskModel task) async {

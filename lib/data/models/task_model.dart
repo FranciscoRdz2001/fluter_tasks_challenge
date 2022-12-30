@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_tasks_challenge/app/config/constants.dart';
 import 'package:intl/intl.dart';
 
@@ -25,6 +26,7 @@ class TaskModel {
   });
 
   Map<String, dynamic> toMap() {
+    debugPrint(DateFormat('yyyy-MM-dd').format(dueDate!));
     return {
       'title': title,
       'is_completed': isCompleted ? 1 : 0,
@@ -55,25 +57,23 @@ class TaskModel {
     );
   }
 
-  List<String> getExpirationTime() {
-    if (dueDate == null) return ['No date'];
+  String getExpirationTime() {
+    if (dueDate == null) return 'No date';
     final difference = dueDate!.difference(DateTime.now());
-    const int daysInYear = 365;
-    double years = difference.inDays / daysInYear;
-    double days = getResidue(years) * daysInYear;
-    double hours = getResidue(days) * 24;
-    int floorYear = years.floor();
-    int floorDays = days.floor();
-    int floorHours = hours.floor();
-    final list = [
-      floorYear != 0 ? '$floorYear years' : '',
-      floorDays != 0 ? ' $floorDays day/s' : '',
-      floorHours != 0 ? ' $floorHours hour/s' : '',
-    ];
-    return list.where((t) => t.isNotEmpty).toList();
+    final days = difference.inDays;
+    final hours = difference.inHours - difference.inDays * 24;
+    final minutes = difference.inMinutes - difference.inHours * 60;
+
+    return '${_checkTime(days, 'day')}${_checkTime(hours, 'hour')}${_checkTime(minutes, 'minute')}';
+  }
+
+  String _checkTime(int time, String label) {
+    if (time == 0) return '';
+    final finalLabel = time.abs() > 1 ? '${label}s' : label;
+    return '$time $finalLabel ';
   }
 
   double getResidue(double value) => value - value.toInt();
   String getDate() =>
-      dueDate == null ? 'No date' : DateFormat.yMMMEd().format(dueDate!);
+      dueDate == null ? 'No date 2' : DateFormat.yMMMEd().format(dueDate!);
 }

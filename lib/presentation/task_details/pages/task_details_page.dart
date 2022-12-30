@@ -61,7 +61,10 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
             return;
           }
 
-          if (!res.hasErrors) Get.offAllNamed('/home');
+          if (!res.hasErrors) {
+            Get.offAllNamed('/home');
+            await taskController.getAllTasks();
+          }
           SnackBarsUtil.forStatus(
             message: res.message,
             hasError: res.hasErrors,
@@ -103,11 +106,10 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
                   onPress: () async {
                     DateTime? pickedDate = await showDatePicker(
                       context: context,
-                      initialDate: DateTime.now(), //get today's date
+                      initialDate: DateTime.now(),
                       firstDate: DateTime(2021),
                       lastDate: DateTime(2030),
                     );
-
                     if (pickedDate == null) return;
                     setState(() {
                       task.dueDate = pickedDate;
