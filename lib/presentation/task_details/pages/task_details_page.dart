@@ -138,6 +138,7 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
               TaskDataWidget(
                 title: 'Tags',
                 subTitle: task.tags == null ? 'No Tags' : null,
+                hideSubtitle: task.tags != null,
                 originalValue: task.tags,
                 icon: Icons.tag,
                 canEdit: true,

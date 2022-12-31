@@ -73,5 +73,5 @@ class TaskModel {
 
   double getResidue(double value) => value - value.toInt();
   String getDate() =>
-      dueDate == null ? 'No date 2' : DateFormat.yMMMEd().format(dueDate!);
+      dueDate == null ? 'No date' : DateFormat.yMMMEd().format(dueDate!);
 }

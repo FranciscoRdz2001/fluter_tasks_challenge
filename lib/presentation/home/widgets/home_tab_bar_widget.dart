@@ -30,6 +30,7 @@ class HomeTabBarWidget extends GetView<HomeTabController> {
                     onTap: () => controller.onNewSelection(tab),
                     child: TabContainerWidget(
                       tab: tab,
+                      key: Key(x.toString()),
                       rightPadding: isFinalElement ? 0 : resp.wp(2),
                       isSelected: isSelected,
                     ),

@@ -53,9 +53,11 @@ class TasksListWidget extends GetView<HomeTabController> {
                           onPress: () async {
                             Get.back();
                             DialogsUtil.loading();
-                            final res = await tasks
-                                .deleteTask(task)
-                                .whenComplete(() => Get.back());
+                            final res = await tasks.deleteTask(task);
+                            if (Get.isDialogOpen != null && Get.isDialogOpen!) {
+                              // Close all dialogs
+                              Get.back(closeOverlays: true);
+                            }
                             if (res == null) {
                               DialogsUtil.error();
                               return;

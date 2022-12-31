@@ -1,4 +1,3 @@
-import 'package:flutter_tasks_challenge/presentation/create_task/pages/create_task_page.dart';
 import 'package:flutter_tasks_challenge/presentation/home/bindings/home_page_bindings.dart';
 import 'package:flutter_tasks_challenge/presentation/home/pages/home_page.dart';
 import 'package:flutter_tasks_challenge/presentation/task_details/pages/task_details_page.dart';
@@ -13,9 +12,5 @@ List<GetPage> getPages = [
   GetPage(
     name: '/taskDetails',
     page: () => const TaskDetailsPage(),
-  ),
-  GetPage(
-    name: '/createTask',
-    page: () => const CreateTaskPage(),
   ),
 ];
